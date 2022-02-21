@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'Products', 'About','Contact'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const styles = {
@@ -94,16 +93,37 @@ const Nav = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} style={styles.menuItem}>
-                  <Typography textAlign="center">
-                    <Link to={`/${page}`} style={styles.linkMenu}>
-                        {page}
+              <MenuItem onClick={handleCloseNavMenu} style={styles.menuItem}>
+                <Typography textAlign="center">
+                    <Link to="/" style={styles.linkMenu}>
+                       Home
                     </Link>
-                  
-                  </Typography>
-                </MenuItem>
-              ))}
+                </Typography>
+              </MenuItem>
+
+              <MenuItem onClick={handleCloseNavMenu} style={styles.menuItem}>
+                <Typography textAlign="center">
+                    <Link to="/products" style={styles.linkMenu}>
+                       Products
+                    </Link>
+                </Typography>
+              </MenuItem>
+
+              <MenuItem onClick={handleCloseNavMenu} style={styles.menuItem}>
+                <Typography textAlign="center">
+                    <Link to="/about" style={styles.linkMenu}>
+                       About
+                    </Link>
+                </Typography>
+
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu} style={styles.menuItem}>
+                <Typography textAlign="center">
+                    <Link to="/contact" style={styles.linkMenu}>
+                       Contact
+                    </Link>
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -115,17 +135,26 @@ const Nav = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <Link to={`/${page}`} style={styles.link}>
-                    {page}
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Link to="/" style={styles.link}>
+                  Home
                 </Link>
               </Button>
-            ))}
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Link to="/products" style={styles.link}>
+                  Products
+                </Link>
+              </Button>
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Link to="/about" style={styles.link}>
+                  About
+                </Link>
+              </Button>
+              <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Link to="/contact" style={styles.link}>
+                  Contact
+                </Link>
+              </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

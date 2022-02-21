@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material';
-
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   homeContainer:{
@@ -35,11 +35,12 @@ const styles = {
   }
 }
 function Home() {
+  const history = useNavigate();
   return (
     <div style={styles.homeContainer}>
       <div style={styles.headerContainer}>
         <h1 style={styles.header}>Online Clothes Store</h1>
-        <Button style={styles.button} size="large" variant="outlined">Buy Now</Button>
+        <Button style={styles.button} size="large" variant="outlined" onClick={()=>history('/products')}>Buy Now</Button>
 
       </div>
 
