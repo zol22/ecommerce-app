@@ -42,6 +42,11 @@ const styles = {
     },
     btn: {
         margin:'10px',
+    },
+    itemAdded: {
+        fontSize: '15px',
+        padding: '20px',
+        color:'green'
     }
 }
 
@@ -50,6 +55,7 @@ function Product() {
     const [ product, setProduct ] = useState([]);
     const [ loading, setLoading] = useState(false);
     const [ quantity, setQuantity ] = useState(1);
+    const [clickAddToCart, setClickAddToCart] = useState(false);
     const params = useParams();
     const history = useNavigate();
     let componentMount = true;
@@ -72,7 +78,7 @@ function Product() {
     },[])
 
     const addToCart = (product) => {
-        //console.log(product)
+        setClickAddToCart(true)
         dispatch(addCart({
             product: product
         }))
@@ -105,6 +111,7 @@ function Product() {
                             <p style={styles.rating}>Rating: {product?.rating?.rate}</p>
                             <Button style={styles.btn} variant="outlined" onClick={()=>addToCart(product)}>Add to the Cart</Button>
                             <Button style={styles.btn} variant="outlined" onClick={goToCart}>Go to the Cart</Button>
+                            {clickAddToCart ? <p style={styles.itemAdded}>Item added in your cart!</p>: null}
                         </Grid>
                     </Grid>
                 </Container>

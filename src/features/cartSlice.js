@@ -48,13 +48,32 @@ export const cartSlice = createSlice({
         })
       }
     },
+    removeQuantityCart: (state, action) => {
+       // Make sure the product already exist by filtered by its id
+       const isExist = state.find((c)=> c.product.id === action.payload.id);
+       if (isExist) {
+         return state.map((item)=> {
+           if (item.product.id === action.payload.id){
+             return {
+               ...item,
+               qty: item.qty-1
+             }
+           }
+           return item
+         })
+       }
+       else {
+         return false;
+       }
+
+    },
     removeCart: (state, action) => {
-      state.value = action.payload;
+      return state.filter((item)=> item.product.id !== action.payload.id)
     },
   },
 });
 
-export const { addCart, addQuantityCart, removeCart } = cartSlice.actions;
+export const { addCart, addQuantityCart, removeQuantityCart, removeCart } = cartSlice.actions;
 export const selectCart = (state) => state.cart
 
 // We can also write thunks by hand, which may contain both sync and async logic.

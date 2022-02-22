@@ -160,7 +160,7 @@ const Nav = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                 <Link to="/cart" style={styles.link}>
-                  Cart()
+                ({cartSelected.length}) Cart
                 </Link>
                 <ShoppingCartIcon fontSize="small" sx={{marginLeft:1, verticalAlign:'middle'}}/>
               </Button>

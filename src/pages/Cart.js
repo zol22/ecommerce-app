@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid , IconButton, Container} from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
-import { addQuantityCart, selectCart } from '../features/cartSlice';
+import { addQuantityCart, removeCart, removeQuantityCart, selectCart } from '../features/cartSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
@@ -16,7 +16,6 @@ const styles = {
     padding:'20px',
   },
   gridContainer: {
-    border:'2px solid red',
     marginTop:'20px',
     marginBottom: '30px',
     display:'flex',
@@ -45,6 +44,11 @@ const styles = {
     display:'flex',
     marginTop:'5%',
     alignItems:'center',
+  },
+  emptyCart: {
+    fontSize:'20px',
+    padding: '20px',
+    textAlign:'center'
   }
 }
 
@@ -53,14 +57,20 @@ function Cart() {
   const cartSelected = useSelector(selectCart);
   const dispatch = useDispatch();
 
-  const removeQty = () => {
-    console.log('remove')
+  const removeQuantity = (id) => {
+    dispatch(removeQuantityCart({
+      id: id,
+    }));
   }
-  const addQuantity = (id, qty) => {
+  const addQuantity = (id) => {
     dispatch(addQuantityCart({
       id: id,
-      qty: qty
     }));
+  }
+  const removeItem = (id) => {
+    dispatch(removeCart({
+      id: id
+    }))
   }
 
 
@@ -69,7 +79,8 @@ function Cart() {
       <div>
           <h1 style={styles.h1}>My cart</h1>
         <Container style={styles.container}>
-           { cartSelected.map((item)=> {
+          {cartSelected.length === 0 ? <p style={styles.emptyCart}>Your Cart is empty :(</p> : (
+           cartSelected.map((item)=> {
              return (  
               <Grid
               container 
@@ -84,23 +95,24 @@ function Cart() {
                   <p style={styles.price}>$ {item.product.price}</p>
                   
                   <div style={styles.qtyIcons}>
-                    <IconButton sx={{marginRight:'10px', color:'black'}} onClick={removeQty}>
+                    <IconButton sx={{marginRight:'10px', color:'black'}} disabled={item.qty === 1 ? true : false} onClick={()=>removeQuantity(item.product.id)}>
                       <RemoveOutlinedIcon/>
                     </IconButton>
                     <p>{item.qty}</p>
-                    <IconButton sx={{marginLeft:'10px', color:'black'}} onClick={()=>addQuantity(item.product.id,item.qty)}>
+                    <IconButton sx={{marginLeft:'10px', color:'black'}} onClick={()=>addQuantity(item.product.id)}>
                       <AddOutlinedIcon />
                     </IconButton>
                   </div>
 
-                  <IconButton sx={{marginTop:'20px',color:'black'}}>
+                  <IconButton sx={{marginTop:'20px',color:'black'}} onClick={()=> removeItem(item.product.id)}>
                      <DeleteIcon/> 
                   </IconButton>
                  
                 </Grid>
               </Grid>
              )
-           }) }
+           }) 
+          )}
           </Container>
       </div>
     )
