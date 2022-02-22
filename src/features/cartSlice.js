@@ -9,7 +9,18 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state,action) => {
-      state.cart = action.payload;
+        // Check if product already exist by its id
+        const isExist = state.cart.filter((c)=> c.id === action.payload.id)
+
+        // if exist, increase its quantity
+        if (isExist.length > 0){
+          action.payload.quantity = action.payload.quantity + 1; //increase its quantity
+          state.cart = [action.payload] // return just the given payload (overWrite the filtered product by adding + 1 to its quantity)
+        } 
+        // if not exist
+        else {
+          state.cart = [...state.cart ,action.payload]; // Dont overwrite anything, just push a new product 
+        } 
     },
     removeCart: (state, action) => {
       state.value = action.payload;

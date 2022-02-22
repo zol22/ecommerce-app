@@ -40,7 +40,7 @@ function Home() {
     <div style={styles.homeContainer}>
       <div style={styles.headerContainer}>
         <h1 style={styles.header}>Online Clothes Store</h1>
-        <Button style={styles.button} size="large" variant="outlined" onClick={()=>history('/products')}>Buy Now</Button>
+        <Button style={styles.button} size="large" variant="outlined" onClick={()=>history('/products')}>See Clothes</Button>
 
       </div>
 

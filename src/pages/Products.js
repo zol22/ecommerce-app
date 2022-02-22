@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Grid , Card, CardMedia, CardHeader, CardContent, Typography, CardActions, Button} from '@mui/material'
+import { useNavigate } from "react-router-dom";
 
 
 const styles = {
@@ -46,6 +47,7 @@ function Products() {
     const [filterData, setFilterData ] = useState(data); // Is inital value is the data to display all the data at first
     const [loading, setLoading ] = useState(false);
     let componentMount = true;
+    const history = useNavigate();
 
     useEffect(() => {
         const getProducts = async() => {
@@ -63,8 +65,8 @@ function Products() {
         getProducts();
     },[])
 
-    const clotheMoreDetail = () => {
-        console.log('hi')
+    const clotheMoreDetail = (id) => {
+        history(`/products/${id}`);
     }
 
     const filterProductsFunction = (productFiltered) =>{
@@ -110,8 +112,8 @@ function Products() {
                                         </Typography>
                                     </CardContent>
                                     <CardActions style={styles.cardActions}>
-                                        <Button size="medium" color="primary" variant="outlined" style={styles.button} onClick={clotheMoreDetail}>
-                                            Buy
+                                        <Button size="medium" color="primary" variant="outlined" style={styles.button} onClick={()=>clotheMoreDetail(product.id)}>
+                                            See Details
                                         </Button>
                                     </CardActions>
                                     </Card>
