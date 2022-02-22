@@ -12,8 +12,6 @@ const styles = {
     container: {
         display:'flex',
         alignItems:'center',
-        height: '80vh',
-
     },
     grid: {
       textAlign: 'center',
@@ -62,7 +60,8 @@ function Product() {
             setLoading(true);
             const response = await fetch(`https://fakestoreapi.com/products/${params.id}`);
             if (componentMount){
-                setProduct(await response.json());
+                let product = await response.json();
+                setProduct(product);
                 setLoading(false)
             } 
             return () => {
@@ -72,11 +71,10 @@ function Product() {
         getProduct();
     },[])
 
-    const addToCart = (id, price) => {
+    const addToCart = (product) => {
+        //console.log(product)
         dispatch(addCart({
-            id: id,
-            quantity: quantity,
-            price: price
+            product: product
         }))
     }
     const goToCart = () => {
@@ -100,12 +98,12 @@ function Product() {
                             <img src={product.image} alt="Product Image" style={styles.img} />
                         </Grid>
                         <Grid  item xs={12} md={6} lg={6} style={styles.grid}>
-                            <h3 style={styles.title}>{product.title}</h3>
-                            <h2 style={styles.price}>$ {product.price}</h2>
-                            <p style={styles.category}>{product.category}</p>
-                            <p style={styles.description}>{product.description}</p>
+                            <h3 style={styles.title}>{product?.title}</h3>
+                            <h2 style={styles.price}>$ {product?.price}</h2>
+                            <p style={styles.category}>{product?.category}</p>
+                            <p style={styles.description}>{product?.description}</p>
                             <p style={styles.rating}>Rating: {product?.rating?.rate}</p>
-                            <Button style={styles.btn} variant="outlined" onClick={()=>addToCart(product.id, product.price)}>Add to the Cart</Button>
+                            <Button style={styles.btn} variant="outlined" onClick={()=>addToCart(product)}>Add to the Cart</Button>
                             <Button style={styles.btn} variant="outlined" onClick={goToCart}>Go to the Cart</Button>
                         </Grid>
                     </Grid>

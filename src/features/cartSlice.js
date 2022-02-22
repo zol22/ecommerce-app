@@ -1,26 +1,52 @@
 import { createSlice } from '@reduxjs/toolkit';
-const initialState = {
-  cart: []
-};
 
+      
+/* Another way to use map()
+return state.map((item) => 
+    item.product.id === action.payload.product.id ? { ...item, qty: item.qty + 1 } : item
+);*/
+const initialState = []
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     addCart: (state,action) => {
-        // Check if product already exist by its id
-        const isExist = state.cart.filter((c)=> c.id === action.payload.id)
 
-        // if exist, increase its quantity
-        if (isExist.length > 0){
-          action.payload.quantity = action.payload.quantity + 1; //increase its quantity
-          state.cart = [action.payload] // return just the given payload (overWrite the filtered product by adding + 1 to its quantity)
+        // Check if product already exist by its id
+        const isExist = state.find((c)=> c.product.id === action.payload.product.id)
+        if (isExist) {
+          alert("It's already on the cart. You can modify the quantity there!")
         } 
-        // if not exist
         else {
-          state.cart = [...state.cart ,action.payload]; // Dont overwrite anything, just push a new product 
+          console.log("New non-repeated Product")
+          return  [
+            ...state, // Dont overwrite anything, just push a new product and add property qty: 1
+            {
+              ...action.payload,
+              qty: 1,
+            }
+          ]
         } 
+
+    },
+    addQuantityCart: (state,action) => {
+
+      // Make sure the product already exist by filtered by its id
+      const isExist = state.find((c)=> c.product.id === action.payload.id);
+
+      // Now that we know that the item is somewhere on the cart, we need to find it; Therefore, we use .map() to iterate the cart
+      if (isExist) {
+        return state.map((item)=> {  // Iterate through each item 
+          if (item.product.id === action.payload.id){ // if item is found 
+            return {
+              ...item,
+              qty: item.qty + 1 // overwrite its quatity
+            }
+          }
+          return item // To not return undefined values from a map() method, you have to explicitly return a value from the callback function you passed to the map() method.
+        })
+      }
     },
     removeCart: (state, action) => {
       state.value = action.payload;
@@ -28,8 +54,8 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addCart, removeCart } = cartSlice.actions;
-export const selectCart = (state) => state.cart.cart
+export const { addCart, addQuantityCart, removeCart } = cartSlice.actions;
+export const selectCart = (state) => state.cart
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
