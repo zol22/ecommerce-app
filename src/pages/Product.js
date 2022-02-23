@@ -4,6 +4,8 @@ import { Grid , Button, Container} from '@mui/material'
 import { useDispatch } from 'react-redux';
 import { addCart } from '../features/cartSlice';
 import { useNavigate } from "react-router-dom";
+import FadingBalls from "react-cssfx-loading/lib/FadingBalls";
+
 
 const styles = {
     goBackBtn:{
@@ -47,7 +49,12 @@ const styles = {
         fontSize: '15px',
         padding: '20px',
         color:'green'
+    },
+    loadingAnimation: {
+        paddingTop:'50px',
+        margin: 'auto',
     }
+    
 }
 
 function Product() {
@@ -89,6 +96,11 @@ function Product() {
     const goBack = () => {
         history('/products')
     }
+    const Loading = () => {
+        return (
+            <FadingBalls color="red" width="50px" height="50px" duration="3s" style={styles.loadingAnimation} />
+        )
+    }
 
     const ShowProduct = () => {
         return (
@@ -121,7 +133,7 @@ function Product() {
 
   return (
     <div>
-        { loading ? <p>Loading</p> : (
+        { loading ? <Loading /> : (
             <ShowProduct />
         )}
     </div>

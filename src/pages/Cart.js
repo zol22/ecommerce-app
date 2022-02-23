@@ -8,8 +8,6 @@ import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 
 const styles = {
   wrapper:{
-    height:'100vh',
-    backgroundColor:'whitesmoke',
   },
   h1:{
     textAlign:'center',
@@ -164,25 +162,31 @@ function Cart() {
               </Container>
             </Grid>
             {/* Cart Checkout*/}
-            <Grid item xs={12} sm={12} md={4} lg={4} sx={{border:'2px solid whitesmoke', backgroundColor:'white'}}>
+            <Grid item xs={12} sm={12} md={4} lg={4} sx={{border:'2px solid whitesmoke', backgroundColor:'whitesmoke', height:'500px', boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'}}>
               <Grid 
               container>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
                     <p style={styles.cartSelectedLength}>{cartSelected.length} items</p>
                     <div style={styles.valuesShippingContainer}>
                       <p style={styles.valueShipping}>Order Value</p>
-                      <p style={styles.valueShippignNumber}>$ 99</p>
+                      <p style={styles.valueShippignNumber}>$ {cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0).toFixed(2)}</p>
                     </div>
                     <div style={styles.valuesShippingContainer}>
                        <p style={styles.valueShipping}>Shipping </p>
-                       <p style={styles.valueShippignNumber}>$ 6</p>
+                       {cartSelected.length === 0 ? <p style={styles.valueShippignNumber}>$ 0.00</p> : (
+                            <p style={styles.valueShippignNumber}>$ 6.00</p>
+                       )}
+                    
                     </div>
 
                     <hr style={styles.line}/>
 
                     <div style={styles.totalContainer}>
                        <p style={styles.total}>Total</p>
-                       <p style={styles.totalNumber}>{cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0).toFixed(2)}</p>
+                       {cartSelected.length === 0 ? <p style={styles.totalNumber}>$ 0.00</p> : (
+                           <p style={styles.totalNumber}>$ {((cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0)) + 6 ).toFixed(2)}</p>
+                       )}
+                     
                     </div>
                    
   

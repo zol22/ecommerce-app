@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Grid , Card, CardMedia, CardHeader, CardContent, Typography, CardActions, Button} from '@mui/material'
 import { useNavigate } from "react-router-dom";
+import FadingBalls from "react-cssfx-loading/lib/FadingBalls";
+
 
 
 const styles = {
@@ -20,7 +22,8 @@ const styles = {
 
     },
     tab:{
-        margin: '5px',
+        margin: '3px',
+        fontSize:'12px',
     },
     card: {
       backgroundColor:'whitesmoke',
@@ -38,6 +41,10 @@ const styles = {
     },
     showProducts: {
         marginTop:'30px'
+    },
+    loadingAnimation: {
+        paddingTop:'50px',
+        margin: 'auto',
     }
 }
 
@@ -72,6 +79,11 @@ function Products() {
     const filterProductsFunction = (productFiltered) =>{
         const updatedFilterProduct = data.filter(item=> item.category === productFiltered);
         setFilterData(updatedFilterProduct)
+    }
+    const Loading = () => {
+        return (
+            <FadingBalls color="red" width="50px" height="50px" duration="3s" style={styles.loadingAnimation} />
+        )
     }
 
 
@@ -128,7 +140,7 @@ function Products() {
 
   return (
     <div>
-    {loading ? <p>Loading</p> : (
+    {loading ? <Loading /> : (
         <ShowProducts />
     )  }
     </div>
