@@ -66,10 +66,6 @@ const styles = {
     display:'flex',
     justifyContent:'space-between'
   },
-  total:{
-    margin:'20px',
-    marginBottom: '30px',
-  },
   valueShippignNumber: {
     margin:'20px',
   },
@@ -88,6 +84,17 @@ const styles = {
     display:'flex',
     margin: '0 auto',
     marginBottom:'15%',
+  },
+  totalContainer: {
+    display:'flex',
+    justifyContent:'space-between'
+  },
+  total:{
+    margin:'20px',
+    marginBottom: '30px',
+  },
+  totalNumber : {
+    margin:'20px',
   }
 }
 
@@ -172,7 +179,13 @@ function Cart() {
                     </div>
 
                     <hr style={styles.line}/>
-                    <p style={styles.total}>Total</p>
+
+                    <div style={styles.totalContainer}>
+                       <p style={styles.total}>Total</p>
+                       <p style={styles.totalNumber}>{cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0).toFixed(2)}</p>
+                    </div>
+                   
+  
                     <Button style={styles.btn}>Continue to checkout</Button>
                   </Grid>
 
