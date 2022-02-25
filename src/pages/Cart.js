@@ -125,8 +125,8 @@ function Cart() {
         <Grid container>
           <Grid item xs={12} sm={12} md={7} lg={7}>
             <Container style={styles.container}>
-              {cartSelected.length === 0 ? <p style={styles.emptyCart}>Your Cart is empty :(</p> : (
-              cartSelected.map((item)=> {
+              {cartSelected.cart.length === 0 ? <p style={styles.emptyCart}>Your Cart is empty :(</p> : (
+              cartSelected.cart.map((item)=> {
                 return (  
                   <Grid
                   container 
@@ -166,14 +166,14 @@ function Cart() {
               <Grid 
               container>
                   <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <p style={styles.cartSelectedLength}>{cartSelected.length} items</p>
+                    <p style={styles.cartSelectedLength}>{cartSelected.cart.length} items</p>
                     <div style={styles.valuesShippingContainer}>
                       <p style={styles.valueShipping}>Order Value</p>
-                      <p style={styles.valueShippignNumber}>$ {cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0).toFixed(2)}</p>
+                      <p style={styles.valueShippignNumber}>$ {cartSelected.cart.reduce((acc, item)=> acc + item.qty * item.product.price , 0).toFixed(2)}</p>
                     </div>
                     <div style={styles.valuesShippingContainer}>
                        <p style={styles.valueShipping}>Shipping </p>
-                       {cartSelected.length === 0 ? <p style={styles.valueShippignNumber}>$ 0.00</p> : (
+                       {cartSelected.cart.length === 0 ? <p style={styles.valueShippignNumber}>$ 0.00</p> : (
                             <p style={styles.valueShippignNumber}>$ 6.00</p>
                        )}
                     
@@ -183,8 +183,8 @@ function Cart() {
 
                     <div style={styles.totalContainer}>
                        <p style={styles.total}>Total</p>
-                       {cartSelected.length === 0 ? <p style={styles.totalNumber}>$ 0.00</p> : (
-                           <p style={styles.totalNumber}>$ {((cartSelected.reduce((acc, item)=> acc + item.qty * item.product.price , 0)) + 6 ).toFixed(2)}</p>
+                       {cartSelected.cart.length === 0 ? <p style={styles.totalNumber}>$ 0.00</p> : (
+                           <p style={styles.totalNumber}>$ {((cartSelected.cart.reduce((acc, item)=> acc + item.qty * item.product.price , 0)) + 6 ).toFixed(2)}</p>
                        )}
                      
                     </div>

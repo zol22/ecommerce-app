@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Grid , Card, CardMedia, CardHeader, CardContent, Typography, CardActions, Button} from '@mui/material'
+import { Grid , Card, CardMedia, CardHeader, CardContent, Typography, CardActions, Button, IconButton} from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import FadingBalls from "react-cssfx-loading/lib/FadingBalls";
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useDispatch, useSelector } from 'react-redux';
+import { favoriteCart, removeFavoriteCart, selectCart } from '../features/cartSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const styles = {
@@ -13,6 +17,7 @@ const styles = {
     },
     grid: {
       textAlign: 'center',
+      position:'relative',
     },
     tabs:{
         display:'flex',
@@ -53,8 +58,11 @@ function Products() {
     const [ data, setData ] = useState([]);
     const [filterData, setFilterData ] = useState(data); // Is inital value is the data to display all the data at first
     const [loading, setLoading ] = useState(false);
+    const [favorite, setFavorite] = useState(false);
     let componentMount = true;
     const history = useNavigate();
+    const dispatch = useDispatch();
+    const favoriteList = useSelector(selectCart);
 
     useEffect(() => {
         const getProducts = async() => {
@@ -76,16 +84,25 @@ function Products() {
         history(`/products/${id}`);
     }
 
+    const favoriteProduct = (product) => {
+             dispatch(favoriteCart({
+                product:product
+            }))
+            setFavorite(true); 
+    }
+
+
     const filterProductsFunction = (productFiltered) =>{
         const updatedFilterProduct = data.filter(item=> item.category === productFiltered);
         setFilterData(updatedFilterProduct)
     }
+   
     const Loading = () => {
         return (
             <FadingBalls color="red" width="50px" height="50px" duration="3s" style={styles.loadingAnimation} />
         )
     }
-
+    
 
     const ShowProducts = () => {
         return (
@@ -117,6 +134,11 @@ function Products() {
                                     alt=""
                                     style={styles.img}
                                     />
+
+                                    <IconButton onClick={()=>favoriteProduct(product)} sx={{marginTop:'20px',position:'absolute', right:'2px', top:'41%'}} style={{color: 'blackπ'}}>
+                                        <FavoriteBorderIcon />
+                                    </IconButton>
+
                                     <CardHeader title={product.category} subheader={product.title}/>
                                     <CardContent>
                                         <Typography variant="h5" >
@@ -140,6 +162,7 @@ function Products() {
 
   return (
     <div>
+     {console.log(favoriteList.favorites)}
     {loading ? <Loading /> : (
         <ShowProducts />
     )  }

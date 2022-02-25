@@ -157,13 +157,20 @@ const Nav = () => {
               </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+          <Box sx={{ flexGrow: 0 , display:'flex', marginLeft:'15%'}}>
+            <Button onClick={handleCloseNavMenu}>
+                <Link to="/favorites" style={styles.link}>
+                Favorites
+                ({cartSelected.favorites.length !== 0 ? cartSelected.favorites.length : 0})
+                </Link>
+            </Button> 
+            <Button onClick={handleCloseNavMenu}>
                 <Link to="/cart" style={styles.link}>
                 <ShoppingCartIcon fontSize="small" sx={{marginLeft:1, verticalAlign:'middle'}}/>
-                 Cart ({cartSelected.length})
+                 Cart 
+                ({cartSelected.cart.length !== 0 ? cartSelected.cart.length : 0})
                 </Link>
-              </Button>
+            </Button>
           </Box>
         </Toolbar>
       </Container>
