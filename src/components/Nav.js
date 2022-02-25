@@ -55,14 +55,14 @@ const Nav = () => {
     <AppBar style={styles.navigationContainer} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
+         { /*<Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -126,14 +126,14 @@ const Nav = () => {
               </MenuItem>
             </Menu>
           </Box>
-          <Typography
+          {/*<Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             LOGO
-          </Typography>
+          </Typography>*/}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                 <Link to="/" style={styles.link}>
